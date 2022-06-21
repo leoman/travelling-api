@@ -1,0 +1,139 @@
+service: traveling-api-lambdas
+app: pmansell
+org: pmansell
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'prod'}
+  region: ${opt:region, 'eu-west-2'}
+  environment:
+    NODE_ENV: prod
+    USER_NAME: ${param:username, "user"}
+    USER_PASSWORD: ${param:password, "$2a$10$9ludxJ7UQIdTiqkqQtcWku8L4Z1bq.8BeBba7mn0xE6zmfYaHoO0q"} #traveling2022
+    USER_SECRET: ${param:secret, "$2a$10$9ludxJ7UQIdTiqkqQtcWku"}
+    DB_USER: ${param:user, "npedjxsn"}
+    DB_DATABASE: ${param:database, "npedjxsn"}
+    DB_PASSWORD: ${param:password, "qo_3CV5r8l7bsgGOi1DbtJaSVt3m5VrE"}
+    DB_PORT: ${param:port, 5432}
+    DB_HOST: ${param:host, "tyke.db.elephantsql.com"}
+
+plugins:
+  - serverless-plugin-typescript 
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+
+functions:
+  ###
+  # Auth
+  ###
+  login:
+    handler: app/routing/auth.loginHandler
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
+
+  ###
+  # Trips
+  ###
+  findTrips:
+    handler: app/routing/trips.findTripsHandler
+    events:
+      - http:
+          path: trips
+          method: get
+          cors: true
+  findTrip:
+    handler: app/routing/trips.findTripHandler
+    events:
+      - http:
+          path: trips/{id}
+          method: get
+          cors: true
+  createTrip:
+    handler: app/routing/trips.createTripHandler
+    events:
+      - http:
+          path: trips
+          method: post
+          cors: true
+  updateTrip:
+    handler: app/routing/trips.updateTripHandler
+    events:
+      - http:
+          path: trips/{id}
+          method: patch
+          cors: true
+  deleteTrip:
+    handler: app/routing/trips.deleteTripHandler
+    events:
+      - http:
+          path: trips/{id}
+          method: delete
+          cors: true
+
+
+
+  ###
+  # Posts
+  ###
+  findPost:
+    handler: app/routing/posts.findPostHandler
+    events:
+      - http:
+          path: posts/{slug}
+          method: get
+          cors: true
+  findPosts:
+    handler: app/routing/posts.findPostsHandler
+    events:
+      - http:
+          path: posts
+          method: get
+          cors: true
+  createPost:
+    handler: app/routing/posts.createPostHandler
+    events:
+      - http:
+          path: posts
+          method: post
+          cors: true
+  updatePost:
+    handler: app/routing/posts.updatePostHandler
+    events:
+      - http:
+          path: posts/{id}
+          method: patch
+          cors: true
+  deletePost:
+    handler: app/routing/posts.deletePostHandler
+    events:
+      - http:
+          path: posts/{id}
+          method: delete
+          cors: true
+
+  ###
+  # Photos
+  ###
+  createPhoto:
+    handler: app/routing/photos.createPhotoHandler
+    events:
+      - http:
+          path: photos
+          method: post
+          cors: true
+  deletePhoto:
+    handler: app/routing/photos.deletePhotoHandler
+    events:
+      - http:
+          path: photos/{id}
+          method: delete
+          cors: true
