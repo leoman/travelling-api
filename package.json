@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "local": "sls offline --httpPort 4003 --lambdaPort 3025 --noPrependStageInUrl --prefix dev",
-    "deploy": "serverless deploy",
+    "deploy": "npx serverless deploy --stage=prod",
+    "deploy:dev": "npx serverless deploy --stage=dev",
     "test": "cross-env NODE_ENV=dev mocha -r ts-node/register tests/*.test.ts --exit",
     "coverage": "nyc --reporter lcov npm run test"
   },
@@ -42,7 +43,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "istanbul": "^0.4.5",
     "nyc": "^15.1.0",
-    "serverless": "^3.18.2",
+    "serverless": "^3.19.0",
     "serverless-offline": "^8.8.0",
     "serverless-plugin-typescript": "^2.1.2",
     "ts-node": "^10.8.0",

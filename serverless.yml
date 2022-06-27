@@ -11,14 +11,14 @@ provider:
   region: ${opt:region, 'eu-west-2'}
   environment:
     NODE_ENV: prod
-    USER_NAME: ${param:username, "user"}
-    USER_PASSWORD: ${param:password, "$2a$10$9ludxJ7UQIdTiqkqQtcWkutrx7B.9yNMvNHGmJgqD9kGpRl4S0pHK"} #travelling2022
-    USER_SECRET: ${param:secret, "$2a$10$9ludxJ7UQIdTiqkqQtcWku"}
-    DB_USER: ${param:user, "npedjxsn"}
-    DB_DATABASE: ${param:database, "npedjxsn"}
-    DB_PASSWORD: ${param:password, "qo_3CV5r8l7bsgGOi1DbtJaSVt3m5VrE"}
+    USER_NAME: ${param:username}
+    USER_PASSWORD: ${param:user_password} #travelling2022
+    USER_SECRET: ${param:secret}
+    DB_USER: ${param:user}
+    DB_DATABASE: ${param:database}
+    DB_PASSWORD: ${param:password}
     DB_PORT: ${param:port, 5432}
-    DB_HOST: ${param:host, "tyke.db.elephantsql.com"}
+    DB_HOST: ${param:host}
 
 plugins:
   - serverless-plugin-typescript 
@@ -88,7 +88,7 @@ functions:
     handler: app/routing/posts.findPostHandler
     events:
       - http:
-          path: posts/{slug}
+          path: posts/{id}
           method: get
           cors: true
   findPosts:

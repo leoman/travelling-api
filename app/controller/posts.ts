@@ -45,10 +45,10 @@ export class PostsController extends BaseController<Post, PostDTO> {
   }
 
   async findOneAction (event: APIGatewayEvent) {
-    const slug: string = event.pathParameters.slug;
+    const id: string = event.pathParameters.id;
     const options = { relations: ['photos', 'location', 'trip'] }
     try {
-      const result = await this.service.findOneBySlug(slug, options);
+      const result = await this.service.findOneBySlug(id, options);
       return MessageUtil.success(result);
     } catch (err) {
       console.error(err);
