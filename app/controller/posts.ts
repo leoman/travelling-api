@@ -58,7 +58,7 @@ export class PostsController extends BaseController<Post, PostDTO> {
   }
 
   async createAction(event: PostEvent, connection?: DataSource) {
-    const { trip: tripId, location } = event.body;
+    const { trip: { id: tripId }, location } = event.body;
     const tripRepo = connection.getRepository(Trip);
     const locationRepo = connection.getRepository(Location);
 

@@ -12,7 +12,7 @@ provider:
   environment:
     NODE_ENV: prod
     USER_NAME: ${param:username, "user"}
-    USER_PASSWORD: ${param:password, "$2a$10$9ludxJ7UQIdTiqkqQtcWku8L4Z1bq.8BeBba7mn0xE6zmfYaHoO0q"} #traveling2022
+    USER_PASSWORD: ${param:password, "$2a$10$9ludxJ7UQIdTiqkqQtcWkutrx7B.9yNMvNHGmJgqD9kGpRl4S0pHK"} #travelling2022
     USER_SECRET: ${param:secret, "$2a$10$9ludxJ7UQIdTiqkqQtcWku"}
     DB_USER: ${param:user, "npedjxsn"}
     DB_DATABASE: ${param:database, "npedjxsn"}
@@ -69,7 +69,7 @@ functions:
     events:
       - http:
           path: trips/{id}
-          method: patch
+          method: put
           cors: true
   deleteTrip:
     handler: app/routing/trips.deleteTripHandler
@@ -110,7 +110,7 @@ functions:
     events:
       - http:
           path: posts/{id}
-          method: patch
+          method: put
           cors: true
   deletePost:
     handler: app/routing/posts.deletePostHandler

@@ -52,7 +52,6 @@ export class MessageUtil {
   static error(code: number = 500, message: string) {
     const result = new Result(StatusCode.serverError, code, message);
 
-    console.log(result.bodyToString());
     return result.bodyToString();
   }
 }

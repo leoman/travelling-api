@@ -10,7 +10,7 @@ export enum Status {
 }
 
 export interface PostDTO {
-  trip: number;
+  trip: Trip;
   title: string;
   titleColour: string;
   content?: string;

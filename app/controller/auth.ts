@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs'
+import createError from 'http-errors';
 import { MessageUtil } from '../utils/message';
 import { LoginEvent } from '../types/auth';
 
@@ -13,18 +14,18 @@ export const authenticateUserCredentials = (username: string, password: string) 
   let passwordIsValid = false
 
   if (username === "" || password === "") {
-    throw new Error(`User credentials were incorrect`)
+    throw new createError(401, `User credentials were incorrect`)
   }
 
   try {
       passwordIsValid = bcrypt.compareSync(password, user.password)
   } catch (error) {
     console.error(error)
-    throw new Error(`An error occurred while parsing the users password`)
+    throw new createError(400, `An error occurred while parsing the users password`)
   }
 
   if (username !== user.username || !passwordIsValid) {
-    throw new Error(`User credentials were incorrect`)
+    throw new createError(401, `User credentials were incorrect`)
   }
 
   return user.username
@@ -34,11 +35,9 @@ export class AuthController {
 
   async login (event: LoginEvent) {
     try {
-      console.log('event', event)
       const { username, password } = event.body
 
       const response = authenticateUserCredentials(username, password)
-      console.log('response', response);
 
       const token = jwt.sign({ username: response }, process.env.USER_SECRET, {
           expiresIn: 86400

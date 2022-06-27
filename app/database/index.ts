@@ -10,7 +10,7 @@ export const dataSource = new DataSource({
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASSWORD,
   synchronize: false,
-  logging: true,
+  logging: false,
   entities: [
     Post,
     Trip,

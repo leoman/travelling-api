@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import createError from 'http-errors';
 
 export const authenticateToken = async (req: any) => {
 
@@ -9,13 +10,12 @@ export const authenticateToken = async (req: any) => {
       const decodedToken = jwt.verify(
         auth.substring(7), process.env.USER_SECRET
       )
-      console.log('authenticateToken', decodedToken)
       return decodedToken
     } catch (error) {
-      throw new Error('Failed to authenticate token.')
+      throw new createError(401, 'Failed to authenticate token.')
     }
   }
-  throw new Error('Failed to authenticate token.')
+  throw new createError(401, 'Failed to authenticate token.')
 }
 
 export default () => {
@@ -31,8 +31,8 @@ export default () => {
           }
         }
       } catch (error) {
-        console.log(error);
-        throw error;
+        console.error(error);
+        throw error
       } finally {
         console.info(`Done Authenticating User`);
       }
