@@ -61,7 +61,9 @@ export class Location {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @OneToOne(() => Post, post => post.location)
+    @OneToOne(() => Post, (post) => post.location, {
+      onDelete: "CASCADE",
+    })
     @JoinColumn()
     post: Post;
 }

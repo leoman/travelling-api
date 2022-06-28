@@ -112,10 +112,16 @@ export class Post {
     @ManyToOne(() => Trip, trip => trip.posts, {})
     trip: Trip;
 
-    @OneToMany(() => Photo, photo => photo.post, { cascade: true })
+    @OneToMany(() => Photo, photo => photo.post, {
+      onDelete: "CASCADE",
+      cascade: ["insert", "update"],
+    })
     photos: Photo[];
 
-    @OneToOne(() => Location, location => location.post, { cascade: true })
+    @OneToOne(() => Location, (location) => location.post, {
+      onDelete: "CASCADE",
+      cascade: ["insert", "update"],
+    })
     location: Location;
     
 }

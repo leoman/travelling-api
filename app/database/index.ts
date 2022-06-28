@@ -12,8 +12,8 @@ export const dataSource = new DataSource({
   synchronize: false,
   logging: false,
   entities: [
-    Post,
     Trip,
+    Post,
     Location,
     Photo
   ],

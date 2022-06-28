@@ -38,6 +38,8 @@ export class Photo {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @ManyToOne(() => Post, post => post.photos, {})
+    @ManyToOne(() => Post, post => post.photos, {
+      onDelete: "CASCADE",
+    })
     post: Post;
 }
