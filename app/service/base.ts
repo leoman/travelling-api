@@ -20,7 +20,7 @@ export class Service<T> {
     return this.repository.save(entity);
   }
 
-  public find (where?: { [key: string]: any }, options?: { [key: string]: string[] }): Promise<T[]> {
+  public find (where?: { [key: string]: any }, options?: { [key: string]: string[] | { [key: string]: string } }): Promise<T[]> {
     let filters: object = { ...options }
     // let filters: object = { relations: ["themes"] }
 

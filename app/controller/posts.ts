@@ -35,7 +35,7 @@ export class PostsController extends BaseController<Post, PostDTO> {
         ...(trip && { trip: { slug: trip } }),
       }
 
-      const options = { relations: ['location'] }
+      const options = { relations: ['location'], order: { 'order': 'DESC' } }
       const result = await this.service.find(where, options);
       return MessageUtil.success(result);
     } catch (err) {
