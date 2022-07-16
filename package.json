@@ -7,6 +7,7 @@
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "local": "sls offline --httpPort 4003 --lambdaPort 3025 --noPrependStageInUrl --prefix dev",
     "deploy": "npx serverless deploy --stage=prod",
+    "deploy:func": "npx serverless deploy function --stage=prod --function",
     "deploy:dev": "npx serverless deploy --stage=dev",
     "test": "cross-env NODE_ENV=dev mocha -r ts-node/register tests/*.test.ts --exit",
     "coverage": "nyc --reporter lcov npm run test"

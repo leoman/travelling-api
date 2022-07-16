@@ -3,7 +3,12 @@ import createError from 'http-errors';
 
 export const authenticateToken = async (req: any) => {
 
-  const auth = req ? req.event.headers.authorization : null
+  let auth = null;
+  if (req && req.event.headers.authorization) {
+    auth = req.event.headers.authorization
+  } else if (req && req.event.headers.Authorization) {
+    auth = req.event.headers.Authorization
+  }
 
   if (auth && auth.toLowerCase().startsWith('bearer ')) {
     try {
@@ -12,10 +17,11 @@ export const authenticateToken = async (req: any) => {
       )
       return decodedToken
     } catch (error) {
+      console.log(error)
       throw new createError(401, 'Failed to authenticate token.')
     }
   }
-  throw new createError(401, 'Failed to authenticate token.')
+  throw new createError(401, 'Failed to recive auth token.')
 }
 
 export default () => {
